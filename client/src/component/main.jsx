@@ -35,7 +35,6 @@ const Main = () => {
     await axios.delete(`/phonebook/${id}`).then((res) => {
       setMsg(res.data);
       getContacts();
-      //setLoading(false)
     });
   };
   return (

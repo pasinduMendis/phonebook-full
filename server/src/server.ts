@@ -2,21 +2,21 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import { ApolloServer,gql } from "apollo-server-express";
+import { ApolloServer, gql } from "apollo-server-express";
 const phonebookRoutes = require("./routes/phoneBookRoute");
-const resolvers=require('./graphql/resolvers')
-const typeDefs=require('./graphql/typeDefs')
-require('dotenv').config();
-
+const resolvers = require("./graphql/resolvers");
+const typeDefs = require("./graphql/typeDefs");
+require("dotenv").config();
 
 const startServer = async () => {
   const app: Application = express();
-  const PORT: String = process.env.POPRT||"5000";
+  const PORT: String = process.env.POPRT || "5000";
 
   mongoose.Promise = global.Promise;
   mongoose
     .connect(
-        process.env.MONGO_URI||"mongodb://localhost:27017/Phone" /*  { useNewUrlParser: true, useUnifiedTopology: true } */
+      process.env.MONGO_URI ||
+        "mongodb://localhost:27017/Phone" /*  { useNewUrlParser: true, useUnifiedTopology: true } */
     )
     .then(
       () => {
@@ -31,8 +31,8 @@ const startServer = async () => {
   app.use(bodyParser.json());
 
   app.use(cors());
-  app.get("/", (req:Request, res:Response) => {
-    res.send("welcome to phoneBook")
+  app.get("/", (req: Request, res: Response) => {
+    res.send("welcome to phoneBook");
   });
   app.use("/phonebook", phonebookRoutes);
 
