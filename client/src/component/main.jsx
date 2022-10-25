@@ -45,6 +45,7 @@ const Main = () => {
           msg={(val) => {
             setMsg(val);
           }}
+          contacts={(val)=>{setcontact(val)}}
         />
       )}
       <h1 className="row d-flex justify-content-center align-items-center py-4">

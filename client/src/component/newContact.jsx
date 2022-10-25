@@ -10,10 +10,15 @@ const NewContact=(props)=>{
     const submit=async (e)=>{
         e.preventDefault()
         setLoading(true)
-        await axios.post('/phonebook/add',{first_name,last_name,phone_number}).then((res)=>{
+        await axios.post('/phonebook/add',{first_name,last_name,phone_number}).then(async (res)=>{
             setLoading(false)
-            props.msg(res.data)
-            props.display(false)
+            
+              await axios.get("/phonebook").then((response) => {
+                props.contacts(response.data);
+                props.msg(res.data)
+                props.display(false)
+              });
+            
         })
     }
     return(<>
