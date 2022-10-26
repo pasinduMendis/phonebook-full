@@ -33,10 +33,6 @@ const ContactList = () => {
     });
   };
 
-  if (msg !== "") {
-    setTimeout(() => setMsg(""), 5000);
-  }
-
   return (
     <div className="container">
       {addNew && (

@@ -1,29 +1,26 @@
+## Phone-Book App
 
-# Bhone Book App
+## commands
 
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-client :
- technology: ReactJs with JS (node environment)
+## client 
+ technology: ReactJs with JS (node environment), 
  commands =>
-	npm install
-	npm start
+	1. npm install 
+	2. npm start 
 
-client-ts :
+## client-ts :
  technology: ReactJs with TS (node environment)
- commands =>
-	npm install
-	npm start
+ #commands =>
+	1. npm install
+	2. npm start
+	
 
-server :
+##server :
  environment and packages : node and mongoDB with graphQL
  commands =>
-	npm install
- 	npm run dev (for develop)
-	npm start
-	npm run bild (production)
+	1. npm install
+ 	2. npm run dev (for develop)
+	   npm start
+	   npm run bild (production)
 
 
