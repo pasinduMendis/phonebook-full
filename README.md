@@ -15,7 +15,7 @@
 	2. npm start
 	
 
-##server :
+## server :
  environment and packages : node and mongoDB with graphQL \
  commands => \
 	1. npm install \
