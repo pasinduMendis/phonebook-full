@@ -9,6 +9,9 @@ const DeleteContact = (props) => {
     await axios.get("/phonebook").then((res) => {
       props.setcontact(res.data);
       props.setLoading(false);
+    }).catch((err)=>{
+      props.setMsg(err.message);
+      props.setLoading(false);
     });
   };
 
@@ -40,6 +43,9 @@ const DeleteContact = (props) => {
     await axios.delete(`/phonebook/${id}`).then((res) => {
       props.setMsg(res.data);
       getContacts();
+    }).catch((err)=>{
+      props.setMsg(err.message);
+      props.setLoading(false);
     });
   };
 

@@ -8,6 +8,9 @@ const SearchContact = (props) => {
     await axios.get(`/phonebook/${filter}`).then((res) => {
       props.setcontact(res.data);
       props.setLoading(false);
+    }).catch((err)=>{
+      props.setLoading(false);
+      
     });
   };
 

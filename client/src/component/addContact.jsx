@@ -19,7 +19,13 @@ const AddContact = (props) => {
           props.contacts(response.data);
           props.msg(res.data);
           props.display(false);
+        }).catch((err)=>{
+          props.msg(err.message);
+            props.display(false);
         });
+      }).catch((err)=>{
+        props.msg(err.message);
+          props.display(false);
       });
   };
   return (
@@ -37,7 +43,7 @@ const AddContact = (props) => {
           <div className="col-12 text-center">
             <form className=" int-form" onSubmit={(e) => submit(e)}>
               <div className="form-group my-3">
-                <label style={{ fontSize: 18 }}>First Name</label>
+                <label style={{ fontSize: 18 }} className="text-start col-12">First Name</label>
                 <input
                   type="text"
                   className={"form-control"}
@@ -54,7 +60,7 @@ const AddContact = (props) => {
                 />
               </div>
               <div className="form-group my-3">
-                <label style={{ fontSize: 18 }}>Last Name</label>
+                <label style={{ fontSize: 18 }} className="text-start col-12">Last Name</label>
                 <input
                   type="text"
                   className={"form-control"}
@@ -71,7 +77,7 @@ const AddContact = (props) => {
                 />
               </div>
               <div className="form-group my-3">
-                <label className="text-end" style={{ fontSize: 18 }}>
+                <label className="text-start col-12" style={{ fontSize: 18 }}>
                   Phone Number
                 </label>
                 <input

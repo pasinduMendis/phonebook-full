@@ -20,6 +20,9 @@ const ContactList = () => {
     await axios.get("/phonebook").then((res) => {
       setcontact(res.data);
       setLoading(false);
+    }).catch((err)=>{
+     setMsg(err.message);
+     setLoading(false);
     });
   };
 
