@@ -1,8 +1,7 @@
 "use strict";
 const mongoose = require('mongoose');
 const phonebookSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-    id: String,
+    id: mongoose.Schema.Types.ObjectId,
     first_name: String,
     last_name: String,
     phone_number: String,

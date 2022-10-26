@@ -1,13 +1,13 @@
 import ContactPageIcon from "@mui/icons-material/ContactPage";
-import DeleteIcon from "@mui/icons-material/Delete";
 import CallSharpIcon from "@mui/icons-material/CallSharp";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import NewContact from "./newContact";
+import AddContact from "./addContact";
+import SearchContact from "./searchContact";
+import DeleteContact from "./deleteContact";
 
-const Main = () => {
+const ContactList = () => {
   const [contact, setcontact] = useState([]);
-  const [filter, setFilter] = useState("");
   const [msg, setMsg] = useState("");
   const [addNew, setAddNew] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -15,6 +15,7 @@ const Main = () => {
   useEffect(() => {
     getContacts();
   }, [msg]);
+
   const getContacts = async () => {
     await axios.get("/phonebook").then((res) => {
       setcontact(res.data);
@@ -22,30 +23,21 @@ const Main = () => {
     });
   };
 
-  const filterContacts = async () => {
-    setLoading(true);
-    await axios.get(`/phonebook/${filter}`).then((res) => {
-      setcontact(res.data);
-      setLoading(false);
-    });
-  };
+  if (msg !== "") {
+    setTimeout(() => setMsg(""), 5000);
+  }
 
-  const deleteContacts = async (id) => {
-    setLoading(true);
-    await axios.delete(`/phonebook/${id}`).then((res) => {
-      setMsg(res.data);
-      getContacts();
-    });
-  };
   return (
     <div className="container">
       {addNew && (
-        <NewContact
+        <AddContact
           display={(val) => setAddNew(val)}
           msg={(val) => {
             setMsg(val);
           }}
-          contacts={(val)=>{setcontact(val)}}
+          contacts={(val) => {
+            setcontact(val);
+          }}
         />
       )}
       <h1 className="row d-flex justify-content-center align-items-center py-4">
@@ -54,46 +46,27 @@ const Main = () => {
 
       <div className="row d-flex jd-flex justify-content-between px-5 mt-3">
         <h1 className="col-2">Contacts</h1>
-        <div
+        <button
           className="col-2 btn btn-lg btn-primary"
           onClick={() => {
             setAddNew(true);
           }}
         >
           +Add Contact
-        </div>
+        </button>
       </div>
 
-      {/* search part */}
-      <div
-        className="py-3 px-5 mt-4"
-        onKeyUp={(e) => {
-          if (e.key === "Enter") {
-            filterContacts();
-          }
-        }}
-      >
-        <input
-          type="email"
-          className={"form-control"}
-          style={{
-            backgroundColor: `${"#F8FBFD"}`,
-            fontSize: 23,
-          }}
-          placeholder="search for the contact by last name..."
-          required
-          onChange={(e) => {
-            setFilter(e.target.value);
-          }}
-        />
-      </div>
+      <SearchContact
+        setLoading={(val) => setLoading(val)}
+        setcontact={(contacts) => setcontact(contacts)}
+      />
 
       {msg && <p className="text-danger">{msg}</p>}
 
       {/* display contact */}
       {loading ? (
         <div className="text-center mt-5">
-        <div className="spinner-border" role="status"></div>
+          <div className="spinner-border" role="status"></div>
         </div>
       ) : (
         <div className="py-3 px-5 ">
@@ -112,15 +85,13 @@ const Main = () => {
                       <CallSharpIcon /> {item.phone_number}
                     </h5>
                   </div>
-                  <div
-                    className="col-2 text-end"
-                    onClick={() => {
-                      deleteContacts(item._id);
-                    }}
-                  >
-                    <div className="btn btn-danger">
-                      <DeleteIcon />
-                    </div>
+                  <div className="col-2 text-end">
+                    <DeleteContact
+                      id={item._id}
+                      setcontact={(contacts) => setcontact(contacts)}
+                      setLoading={(val) => setLoading(val)}
+                      setMsg={(val) => setMsg(val)}
+                    />
                   </div>
                 </div>
               );
@@ -130,4 +101,4 @@ const Main = () => {
     </div>
   );
 };
-export default Main;
+export default ContactList;
